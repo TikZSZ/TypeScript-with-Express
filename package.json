@@ -1,0 +1,19 @@
+{
+  "name": "express-with-ts",
+  "version": "1.0.0",
+  "main": "./build/index.js",
+  "license": "MIT",
+  "scripts": {
+    "run:build": "tsc -w",
+    "run:nodemon": "nodemon ./build/index.js",
+    "start": "concurrently yarn:run:*"
+  },
+  "dependencies": {
+    "@types/cookie-session": "^2.0.42",
+    "@types/express": "^4.17.11",
+    "cookie-session": "^1.4.0",
+    "express": "^4.17.1",
+    "natives": "^1.1.6",
+    "reflect-metadata": "^0.1.13"
+  }
+}
