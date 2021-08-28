@@ -1,4 +1,4 @@
-import { controller, GET, use } from "./decorators";
+import { controller, GET, use } from "../../decorators";
 import {Request,Response,NextFunction} from "express";
 function requireAuth(req: Request,res: Response,next: NextFunction){
   if(req.session && req.session.isLoggedIn){

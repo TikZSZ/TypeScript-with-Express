@@ -1,12 +1,12 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import "reflect-metadata";
-import { AppRouter } from "../../AppRouter";
+import { AppRouter } from "./AppRouter";
 import { Methods } from "./Methods";
 import { MetadataKeys } from "./MetadataKeys";
 
 let router = AppRouter.getInstance();
 
-function bodyValidator(keys:string[]):RequestHandler{
+export function bodyValidator(keys:string[]):RequestHandler{
   return (req:Request, res:Response, next:NextFunction)=>{
     console.log(req.body);
     
@@ -25,9 +25,9 @@ function bodyValidator(keys:string[]):RequestHandler{
 }
 
 export function controller(routePrefix: string) {
-  return (target: Function) => {
+  return (target: Function ) => {
     for (let key in target.prototype) {
-      const routeHanlder = target.prototype[key];
+      const routeHandler = target.prototype[key];
       const path = Reflect.getMetadata(
         MetadataKeys.path,
         target.prototype,
@@ -39,7 +39,7 @@ export function controller(routePrefix: string) {
         key
       );
 
-      let middilewares: RequestHandler[] =
+      let middleware: RequestHandler[] =
         Reflect.getMetadata(MetadataKeys.middleware, target.prototype, key) ||
         [];
       
@@ -48,7 +48,7 @@ export function controller(routePrefix: string) {
       const validator = bodyValidator(bodyValidators)
 
       if (path) {
-        router[method](`${routePrefix}${path}`, ...middilewares,validator, routeHanlder);
+        router[method](`${routePrefix}${path}`, ...middleware,validator, routeHandler);
       }
     }
   };

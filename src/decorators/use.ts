@@ -4,7 +4,7 @@ import { MetadataKeys } from "./MetadataKeys";
 
 export function use(middleware: RequestHandler) {
   return (target: any, key: string, desc: PropertyDescriptor) => {
-    let middlewares: RequestHandler[] = Reflect.getMetadata(
+    let middleware: RequestHandler[] = Reflect.getMetadata(
       MetadataKeys.middleware,
       target, 
       key
@@ -12,7 +12,7 @@ export function use(middleware: RequestHandler) {
 
     Reflect.defineMetadata(
       MetadataKeys.middleware,
-      [...middlewares,middleware],
+      [...middleware,middleware],
       target,
       key
     );

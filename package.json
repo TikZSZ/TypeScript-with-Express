@@ -9,8 +9,10 @@
     "start": "concurrently yarn:run:*"
   },
   "dependencies": {
+    "@types/cookie-parser": "^1.4.2",
     "@types/cookie-session": "^2.0.42",
     "@types/express": "^4.17.11",
+    "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "natives": "^1.1.6",

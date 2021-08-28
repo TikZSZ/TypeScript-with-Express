@@ -1,6 +1,5 @@
-
-import {NextFunction, Request,Response} from "express"
-import {GET , controller, use,POST,bodyValidator} from "./decorators"
+import {Request,Response} from "express"
+import {GET,controller,POST,bodyValidator, Middleware} from "../../decorators"
 
 interface RequestWithBody extends Request{
   body:{[key: string]:string|undefined}
@@ -28,7 +27,7 @@ interface RequestWithBody extends Request{
   }
 
   @POST("/login")
-  @bodyValidator("email","pass")
+  @Middleware(bodyValidator(['name','pass']))
   letLogin(req:RequestWithBody, res:Response){
     const {email,pass} = req.body
     if(email==="ad" && pass==="pass" && req.session){
@@ -36,12 +35,23 @@ interface RequestWithBody extends Request{
       console.log(req.session);
       res.redirect("/")
     }
+    res.redirect("/error")
   }
+
+  @GET("/error")
+  error(req:Request,res:Response){
+    res.send(`
+    <div>
+      <p>
+        Wrong credentials
+      </p>
+    </div>`)
+  }
+  
 
   @GET("/logout")
   logOut(req:Request,res:Response){
     req.session=undefined
     res.redirect("/")
   }
-  
 }
