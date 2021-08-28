@@ -36,9 +36,9 @@ app.listen(3000,()=>{
 ## Basic Route Handler
 
 Next we implement a root route controller
-`@controller` decorator is used to prefix all routes and it is what that adds the routes to router `@GET,@POST etc` can then use pathString which will be prefixed with `@controller` prefix 
+`@controller` decorator is used to prefix all routes and it is what that adds the routes to router `@GET(pathString) etc` can then use pathString which will be prefixed with `@controller` prefix 
 
-So a `@controller("")` with `@GET("/")` would mean *`localhost:3000`* with getMethod
+So a `@controller("")` with `@GET("/")` would mean *`localhost:3000/`* with getMethod
 
 ```typescript
 import { controller, GET } from "../decorators";
